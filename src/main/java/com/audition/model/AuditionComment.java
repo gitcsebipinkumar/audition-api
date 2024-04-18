@@ -1,13 +1,14 @@
 package com.audition.model;
 
+
 import lombok.Data;
 
 @Data
-public class AuditionPost {
+public class AuditionComment {
 
-    private int userId;
     private int id;
-    private String title;
+    private String name;
+    private String email;
     private String body;
 
 }

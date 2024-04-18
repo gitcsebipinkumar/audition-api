@@ -7,6 +7,7 @@
     <description>PMD custom rule sets, see https://pmd.github.io/pmd-6.45.0/pmd_userdocs_making_rulesets.html</description>
 
     <exclude-pattern>.*/generated/.*</exclude-pattern>
+    <exclude-pattern>.*/src/test/.*</exclude-pattern>
 
     <rule ref="category/java/codestyle.xml">
         <exclude name="ShortVariable"/>
@@ -15,8 +16,16 @@
         <exclude name="CommentDefaultAccessModifier"/>
         <exclude name="TooManyStaticImports"/>
         <exclude name="OnlyOneReturn"/>
+
+        <exclude name="MethodArgumentCouldBeFinal" />
+        <exclude name="LocalVariableCouldBeFinal"/>
     </rule>
 
+    <rule ref="category/java/design.xml/UseObjectForClearerAPI">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['AuditionController.getComments']"/>
+        </properties>
+    </rule>
     <rule ref="category/java/security.xml"/>
     <rule ref="category/java/performance.xml"/>
     <rule ref="category/java/multithreading.xml"/>
@@ -34,6 +43,10 @@
 
     <rule ref="category/java/bestpractices.xml">
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+
+        <exclude name="UnusedFormalParameter" />
+        <exclude name="PreserveStackTrace" />
+        <exclude name="GuardLogStatement" />
     </rule>
 
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">

@@ -15,6 +15,7 @@ spring:
       probability: 1.0
 server:
   max-http-request-header-size: 16KB
+  port: 8080
 management:
   tracing:
     sampling:
@@ -22,7 +23,19 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*' #TODO enable only info and health for security purposes. Consider that we may want to still access other actuator endpoints securely.
+        include: '*' #TODO enable only info and y for security purposes. Consider that we may want to still access other actuator endpoints securely.
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org:
+      apache:
+        http: DEBUG
+  httpclient:
+    wire: DEBUG
+
+postClient:
+  baseUrl: https://jsonplaceholder.typicode.com/posts
+
+commentClient:
+  baseUrl: https://jsonplaceholder.typicode.com/comments

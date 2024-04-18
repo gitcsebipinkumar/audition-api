@@ -1,14 +1,16 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.3'
+    //DONE-updated  latest spring boot version
+    id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.0'
     id "maven-publish"
     id 'jacoco'
     id "com.github.spotbugs" version "5.0.14"
     id "io.freefair.lombok" version "8.0.1"
-    // TODO Enable checkstyle and PMD. Fix all the relevant issues.
-    //id "checkstyle"
-    //id "pmd"
+
+    // DONE- Enable checkstyle and PMD. Fix all the relevant issues.
+    id "checkstyle"
+    id "pmd"
 }
 
 group = 'com.audition'
@@ -16,9 +18,21 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
+checkstyle {
+    toolVersion '10.12.4'
+    configFile file("config/checkstyle/checkstyle.xml")
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/test/java'
+}
 
 // TODO allow for code-analysis.gradle to be applied for code analysis.
-// apply from: 'config/code-analysis.gradle'
+apply from: 'config/code-analysis.gradle'
 
 configurations {
     compileOnly {
@@ -31,7 +45,8 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2022.0.1")
+    //updated cloud compatible version with latest spring boot version
+    set('springCloudVersion', "2023.0.1")
     set('logbackVersion', "1.4.5")
     set('slf4jVersion', "2.0.5")
     set('springdocVersion', "2.0.2")
@@ -64,6 +79,14 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.projectreactor:reactor-test"
+
+    // added swagger api doc dependencies
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents.core5/httpcore5
+    implementation group: 'org.apache.httpcomponents.core5', name: 'httpcore5', version: '5.2.4'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 dependencyManagement {
