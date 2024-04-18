@@ -34,6 +34,13 @@ public class AuditionIntegrationClient {
     @Autowired
     private transient RestTemplate restTemplate;
 
+    /**
+     * Retrieves audition posts based on the provided filter criteria.
+     *
+     * @param auditionPostFilterDto the filter criteria for retrieving audition posts
+     * @return a list of audition posts matching the filter criteria
+     * @throws SystemException if an error occurs while retrieving posts
+     */
     public List<AuditionPost> getPosts(AuditionPostFilterDto auditionPostFilterDto) {
         try {
             URI uri = UriComponentsBuilder.fromUriString(postUrl)
@@ -51,6 +58,14 @@ public class AuditionIntegrationClient {
         }
     }
 
+    /**
+     * Retrieves a specific audition post by its ID.
+     *
+     * @param id the ID of the audition post to retrieve
+     * @return the audition post with the specified ID
+     * @throws SystemException if the requested post is not found or an error occurs during retrieval
+     */
+
     public AuditionPost getPostById(String id) {
         try {
             URI uri = UriComponentsBuilder.fromUriString(postUrl)
@@ -67,6 +82,14 @@ public class AuditionIntegrationClient {
         }
     }
 
+    /**
+     * Retrieves audition post comments for a specific post ID.
+     *
+     * @param postId the ID of the audition post for which to retrieve comments
+     * @return the list of comments for the specified audition post
+     * @throws SystemException if an error occurs while retrieving post comments
+     */
+
     public List<AuditionComment> getPostComments(String postId) {
         try {
             URI uri = UriComponentsBuilder.fromUriString(postUrl)
@@ -80,6 +103,14 @@ public class AuditionIntegrationClient {
             throw new SystemException("Error retrieving post comments: " + e.getMessage());
         }
     }
+
+    /**
+     * Retrieves audition comments based on the provided filter criteria.
+     *
+     * @param auditionCommentFilterDto the filter criteria for retrieving audition comments
+     * @return a list of audition comments matching the filter criteria
+     * @throws SystemException if an error occurs while retrieving comments
+     */
 
     public List<AuditionComment> getComments(AuditionCommentFilterDto auditionCommentFilterDto) {
         try {

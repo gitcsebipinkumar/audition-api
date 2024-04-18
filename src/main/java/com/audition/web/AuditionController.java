@@ -27,6 +27,14 @@ public class AuditionController {
     private transient AuditionService auditionService;
 
 
+    /**
+     * Retrieves audition posts based on provided filter parameters.
+     *
+     * @param userId optional user ID filter (must be positive)
+     * @param id     optional post ID filter (must be positive)
+     * @param title  optional title filter
+     * @return list of audition posts matching the filters
+     */
 
     @GetMapping(value = "/posts", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get audition posts - Filter data based on provided parameters")
@@ -38,7 +46,12 @@ public class AuditionController {
         return auditionService.getPosts(auditionPostFilterDto);
     }
 
-
+    /**
+     * Retrieves a specific audition post by its ID.
+     *
+     * @param id the ID of the audition post to retrieve (must be positive)
+     * @return the audition post with the specified ID
+     */
 
     @GetMapping(value = "/posts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get posts based on Id param")
@@ -46,7 +59,12 @@ public class AuditionController {
         return auditionService.getPostById(id);
     }
 
-
+    /**
+     * Retrieves comments for a specific audition post.
+     *
+     * @param postId the ID of the audition post for which to retrieve comments (must be positive)
+     * @return the post along with its comments
+     */
 
     @GetMapping(value = "posts/{postId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get comments for a post")
@@ -54,6 +72,15 @@ public class AuditionController {
         return auditionService.getPostComments(postId);
     }
 
+    /**
+     * Retrieves audition comments based on provided filter parameters.
+     *
+     * @param postId optional post ID filter (must be positive)
+     * @param id     optional comment ID filter (must be positive)
+     * @param name   optional name filter
+     * @param email  optional email filter (must be a valid email address)
+     * @return list of audition comments matching the filters
+     */
 
     @GetMapping(value = "comments", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get comments for a post")
